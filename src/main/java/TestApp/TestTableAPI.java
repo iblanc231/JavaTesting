@@ -30,8 +30,7 @@ public class TestTableAPI {
 
         //parse resultset into TestTable objects
         rs.next();
-        TestTable result = new TestTable();
-        result.setID(ID);
+        TestTable result = new TestTable(ID);
         result.setVal(rs.getInt("val"));
         result.setWord(rs.getString("word"));
 

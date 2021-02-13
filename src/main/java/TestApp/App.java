@@ -1,22 +1,20 @@
 package TestApp;
 
-import java.util.*;
+import java.io.Console;
 
 public class App {
 
     public static void main(String[] args) throws Exception {
 
         Database db = Database.getInstance();
-        Scanner scn = new Scanner(System.in);
+        Console console = System.console();
 
         //Open database connection
         db.connect();
         
         TestTableAPI.getAllTestTables();
 
-        System.out.print("\n\nSearch for ID: ");
-        String s = scn.nextLine();
-        int i = Integer.parseInt(s);
+        int i = Integer.parseInt(new String(console.readLine("\n\nSearch for ID: ")));
 
         TestTable tt = TestTableAPI.getTestTableById(i);
 
@@ -27,6 +25,7 @@ public class App {
         prep = conn.prepareStatement(query);
         prep.setInt(1,3);
         prep.setInt(2,420);
+        prep.setString(3,"blaze it");
         prep.execute();*/
         
     }

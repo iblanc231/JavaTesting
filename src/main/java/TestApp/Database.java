@@ -24,20 +24,13 @@ public class Database {
 
     public void connect() throws SQLException {
 
-        //Create scanner and console objects for inputs
-        Scanner scn = new Scanner(System.in);
+        //Create console objects for inputs
         Console console = System.console();
 
-        //Input username
-        System.out.print("Username: ");
-        String username = scn.nextLine();
-
-        //Input password
+        //Input username, password, and db name
+        String username = new String(console.readLine("Username: "));
         String password = new String(console.readPassword("Password: "));
-
-        //Input database name
-        System.out.print("Database name: ");
-        String dbURL = "jdbc:mysql://localhost:3306/" + scn.nextLine();
+        String dbURL = "jdbc:mysql://localhost:3306/" + console.readLine("Database Name: ");
         
         //Try connection to database
         try {
