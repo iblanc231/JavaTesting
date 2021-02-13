@@ -8,8 +8,6 @@ public class Database {
     
     private static Database INSTANCE;       //Singleton instance for the Database
     private Connection con;                 //connection to MySQL database
-    private ResultSet rs;                   //Results from Select queries to be parsed
-    private Statement stmt;
     private PreparedStatement ps;
 
     //Constructor is private because this is a Singleton object.
@@ -24,7 +22,7 @@ public class Database {
         return INSTANCE;
     }
 
-    public void connect() {
+    public void connect() throws SQLException {
 
         //Create scanner and console objects for inputs
         Scanner scn = new Scanner(System.in);
@@ -58,14 +56,20 @@ public class Database {
 
     }
 
-    public void insert(String query) throws SQLException {
+    public ResultSet query(String query) throws SQLException {
+
+        //Prepare and execute statement. Return result set.
+        ps = con.prepareStatement(query);
+        return ps.executeQuery();
 
     }
 
-    public void query(String query, List<Object> params) throws SQLException {
+    public ResultSet query(String query, List<Object> params) throws SQLException {
 
+        //Prepare the query in the Prepared Statement
         ps = con.prepareStatement(query);
 
+        //Prepare the parameters for the query (Where clause)
         if (params != null) {
             for (int i = 0; i < params.size(); i++) {
 
@@ -74,32 +78,18 @@ public class Database {
 
                 if (params.get(i) instanceof String)
                     ps.setString(i + 1, (String) params.get(i));
+
             }
         }
 
-        rs = ps.executeQuery();
+        //Execute query and return result set
+        return ps.executeQuery();
 
-        while (rs.next()) {
-            System.out.println(rs.getInt("ID"));
-            System.out.println(rs.getInt("val"));
-            System.out.println(rs.getString("word"));
-        }
 
     }
 
-    public void getValue(int id) throws SQLException {
-        String query = "Select * from testtable where id = ?";
-
-        ps = con.prepareStatement(query);
-        ps.setInt(1,id);
+    public void insert() {
         
-        rs = ps.executeQuery();
-
-        while (rs.next()) {
-            System.out.println(rs.getInt("ID"));
-            System.out.println(rs.getInt("val"));
-        }
-
     }
 
 }
