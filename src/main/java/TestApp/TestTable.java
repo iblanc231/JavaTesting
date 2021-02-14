@@ -17,15 +17,15 @@ public class TestTable {
     }
 
     public int getID() {
-        return id;
+        return this.id;
     }
 
     public int getVal() {
-        return val;
+        return this.val;
     }
 
     public String getWord() {
-        return word;
+        return this.word;
     }
 
     public void setID(int i) {

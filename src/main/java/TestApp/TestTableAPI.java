@@ -9,7 +9,7 @@ public class TestTableAPI {
 
     public static void getAllTestTables() throws SQLException {
 
-        String query = "select * from testtable";
+        String query = "SELECT * FROM testtable";
 
         ResultSet rs = db.query(query);
 
@@ -21,7 +21,7 @@ public class TestTableAPI {
 
     public static TestTable getTestTableById(int ID) throws SQLException{
 
-        String query = "select * from testtable where id = ?";
+        String query = "SELECT * FROM testtable WHERE ID = ?";
 
         List<Object> params = new ArrayList<Object>();
         params.add(ID);
@@ -38,8 +38,54 @@ public class TestTableAPI {
 
     }
 
-    public static void insertTestTable(TestTable tt) {
+    public static boolean insertTestTable(TestTable tt) {
         
+        String query = "INSERT INTO testtable (ID, val, word) VALUES (?,?,?)";
+        List<Object> params = new ArrayList<Object>();
+
+        params.add(tt.getID());
+        params.add(tt.getVal());
+        params.add(tt.getWord());
+
+        try {
+
+            int x = db.insert(query, params);
+            return x == 1;
+
+        } 
+        catch (SQLException e) {
+
+            System.out.println(e);
+            return false;
+
+        }
+
+        
+    }
+
+    public static boolean insertTestTable(List<TestTable> tts) {
+
+        String query = "INSERT INTO testtable (ID, val, word) VALUES (?,?,?)";
+        List<Object> params = new ArrayList<Object>();
+
+        try {
+
+            for (TestTable tt : tts) {
+                params.clear();
+                params.add(tt.getID());
+                params.add(tt.getVal());
+                params.add(tt.getWord());
+                db.insert(query,params);
+            }
+
+            return true;
+
+        } catch (SQLException e)
+        {
+            return false;
+        }
+
+
     }
 
 }

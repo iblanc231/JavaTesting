@@ -49,6 +49,12 @@ public class Database {
 
     }
 
+    public void close() throws SQLException {
+
+        con.close();
+
+    }
+
     public ResultSet query(String query) throws SQLException {
 
         //Prepare and execute statement. Return result set.
@@ -64,6 +70,7 @@ public class Database {
 
         //Prepare the parameters for the query (Where clause)
         if (params != null) {
+
             for (int i = 0; i < params.size(); i++) {
 
                 if (params.get(i) instanceof Integer)
@@ -73,6 +80,7 @@ public class Database {
                     ps.setString(i + 1, (String) params.get(i));
 
             }
+
         }
 
         //Execute query and return result set
@@ -81,8 +89,35 @@ public class Database {
 
     }
 
-    public void insert() {
+    public int insert(String query, List<Object> params) throws SQLException {
         
+        ps = con.prepareStatement(query);
+
+        if (params != null) {
+
+            for (int i = 0; i < params.size(); i++) {
+
+                if (params.get(i) instanceof Integer) {
+                    ps.setInt(i + 1, (Integer) params.get(i));
+                }
+
+                if (params.get(i) instanceof String) {
+                    ps.setString(i + 1, (String) params.get(i));
+                }
+                    
+                // if ( (i % numParams) + 1 == 0)
+                // {
+                //     try {
+                //     ps.executeUpdate();
+                //     ps.clearParameters();
+                //     } catch (SQLException e) {System.out.println(e);}
+                // }
+
+            }
+        }
+
+        return ps.executeUpdate();
+
     }
 
 }

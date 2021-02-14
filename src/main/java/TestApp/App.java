@@ -1,6 +1,7 @@
 package TestApp;
 
 import java.io.Console;
+import java.util.*;
 
 public class App {
 
@@ -12,21 +13,28 @@ public class App {
         //Open database connection
         db.connect();
         
+        //Query for all TestTables
         TestTableAPI.getAllTestTables();
 
+        //Query for a TT by input ID
         int i = Integer.parseInt(new String(console.readLine("\n\nSearch for ID: ")));
-
         TestTable tt = TestTableAPI.getTestTableById(i);
-
         System.out.print("ID: " + tt.getID() + "\tValue: " + tt.getVal() + "\tWord: " + tt.getWord() + "\n");
 
-        /*//Insert a new row
-        query = "insert into testtable (ID, val) values (?, ?)";
-        prep = conn.prepareStatement(query);
-        prep.setInt(1,3);
-        prep.setInt(2,420);
-        prep.setString(3,"blaze it");
-        prep.execute();*/
+        // //Insertion Testing
+        // TestTable tt1 = new TestTable(1,2,"testing");
+        // TestTable tt2 = new TestTable(2,3,"testing");
+        // TestTable tt3 = new TestTable(3,69,"funny");
+
+        // List<TestTable> tts = new ArrayList<TestTable>();
+        // tts.add(tt2);
+        // tts.add(tt3);
+
+        // TestTableAPI.insertTestTable(tt);
+        // TestTableAPI.insertTestTable(tts);
+
+        //Close database connection
+        db.close();
         
     }
 }
