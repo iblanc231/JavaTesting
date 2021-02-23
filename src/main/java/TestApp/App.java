@@ -1,7 +1,6 @@
 package TestApp;
 
 import java.io.Console;
-import java.util.*;
 
 public class App {
 
@@ -22,15 +21,15 @@ public class App {
         System.out.print("ID: " + tt.getID() + "\tValue: " + tt.getVal() + "\tWord: " + tt.getWord() + "\n");
 
         // //Insertion Testing
-        // TestTable tt1 = new TestTable(1,2,"testing");
-        // TestTable tt2 = new TestTable(2,3,"testing");
+        TestTable tt1 = new TestTable(1,2,"testing");
+        // TestTable tt2 = new TestTable(2,3,"more testing");
         // TestTable tt3 = new TestTable(3,69,"funny");
 
         // List<TestTable> tts = new ArrayList<TestTable>();
         // tts.add(tt2);
         // tts.add(tt3);
 
-        // TestTableAPI.insertTestTable(tt);
+        System.out.println(TestTableAPI.insertTestTable(tt1));
         // TestTableAPI.insertTestTable(tts);
 
         //Close database connection

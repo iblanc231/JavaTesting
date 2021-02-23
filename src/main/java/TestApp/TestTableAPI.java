@@ -67,6 +67,7 @@ public class TestTableAPI {
 
         String query = "INSERT INTO testtable (ID, val, word) VALUES (?,?,?)";
         List<Object> params = new ArrayList<Object>();
+        int numSuccesses = 0;
 
         try {
 
@@ -75,16 +76,33 @@ public class TestTableAPI {
                 params.add(tt.getID());
                 params.add(tt.getVal());
                 params.add(tt.getWord());
-                db.insert(query,params);
+                numSuccesses += db.insert(query,params);
             }
 
-            return true;
+            return numSuccesses == tts.size();
 
         } catch (SQLException e)
         {
             return false;
         }
 
+    }
+
+    public static void updateById(TestTable tt) {
+
+        //String query = "UPDATE ";
+        //List<Object> params = new ArrayList<Object>();
+
+        /*try {
+
+            
+
+        }
+        catch (SQLException e) {
+
+            System.out.println(e);
+
+        }*/
 
     }
 
